@@ -492,7 +492,7 @@ def choices():
             imap.close()
             imap.logout()
             backtomenu()
-#-----------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------
         else:
             tts = gTTS(text="Please Select the correct choice.Going Back to Choices Menu", lang='en')
             ttsname=("elsechoice.mp3")
