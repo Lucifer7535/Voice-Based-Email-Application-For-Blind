@@ -6,7 +6,6 @@ import imaplib
 from gtts import gTTS
 import pyglet
 import os, time
-import email
 from email.header import decode_header
 import webbrowser
 
@@ -54,13 +53,12 @@ def backtomenu():
     music.play()
     time.sleep(music.duration)
     os.remove(ttsname)
-    print("Do you want to go back to choices menu for performing other actions or Do you want to Exit.")
-    
+    print("Do you want to go back to choices menu for performing other actions or Do you want to Exit?")
     r = sr.Recognizer()
     with sr.Microphone() as source:
         audio=r.listen(source)
         text=r.recognize_google(audio)
-        print ("You said : "+text +"\n") 
+        print("you said : " + text + "\n")
         if text == "yes" or text == "Yes":
             choices()             
         else:
@@ -91,7 +89,7 @@ def input_subject():
     music.play()
     time.sleep(music.duration)
     os.remove(ttsname)
-    print("your subject is : " + input_subject.subject +"\n") 
+    print("your subject is : " + input_subject.subject +"\n")
     validating_sub_input()   
 
 #function to take mail body as input
@@ -131,21 +129,18 @@ def validating_sub_input():
     music.play()
     time.sleep(music.duration)
     os.remove(ttsname)
-    try:
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("Is the provided input correct?")
-            audio=r.listen(source)
-            text = r.recognize_google(audio)
-            print("you said: "+ text + "\n")
-            ok_done()
-            if text == "yes" or text == "YES":
-                input_body()
-            else:
-                input_subject()  
-
-    except:
-        error1()
+    
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Is the provided input correct?")
+        audio=r.listen(source)
+        text = r.recognize_google(audio)
+        print("you said: "+ text + "\n")
+        ok_done()
+        if text == "yes" or text == "YES":
+            input_body()
+        else:
+            input_subject()  
 
 #function to validate body
 def validating_body_input():
@@ -156,20 +151,18 @@ def validating_body_input():
     music.play()
     time.sleep(music.duration)
     os.remove(ttsname)
-    try:
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("Is the provided input correct?")
-            audio=r.listen(source)
-            text = r.recognize_google(audio)
-            print("you said: "+ text + "\n")
-            ok_done()
-            if text == "yes" or text == "YES":
-                mail_send()
-            else:
-                input_body() 
-    except:
-        error1()
+    
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Is the provided input correct?")
+        audio=r.listen(source)
+        text = r.recognize_google(audio)
+        print("you said: "+ text + "\n")
+        ok_done()
+        if text == "yes" or text == "YES":
+            mail_send()
+        else:
+            input_body() 
 
 #function to send mail
 def mail_send():
@@ -190,13 +183,15 @@ def mail_send():
     server.close()
     
     tts = gTTS(text="Congrats! Your mail has been send. ", lang='en')
-    ttsname=("send.mp3")
+    ttsname=("mailsend.mp3")
     tts.save(ttsname)
     music = pyglet.media.load(ttsname, streaming = False)
     music.play()
     time.sleep(music.duration)
     os.remove(ttsname)
+
     print ("Congrats! Your mail has send. \n")
+    
     backtomenu()
 
 #function to call the title
@@ -247,7 +242,7 @@ def main():
         main.password = input_password.replace(" ","")
         print("your password is : ********** \n")
         ok_done()
-
+    
     mail = smtplib.SMTP('smtp.gmail.com',587)
     mail.ehlo()
     mail.starttls()
@@ -293,8 +288,8 @@ def choices():
     time.sleep(music.duration)
     os.remove(ttsname)
 
-    print ("2. Check your inbox")
-    tts = gTTS(text="Say Second if you want to Check Your Inbox \n", lang='en')
+    print ("2. Check your inbox \n")
+    tts = gTTS(text="Say Second if you want to Check Your Inbox", lang='en')
     ttsname=("choice2.mp3")
     tts.save(ttsname)
     music = pyglet.media.load(ttsname, streaming = False)
@@ -315,6 +310,7 @@ def choices():
         print ("Your choice: \n")
         audio=r.listen(source)
         text=r.recognize_google(audio)
+
         print ("You said : "+text + "\n")
         ok_done()
 #-----------------------------------------------------------------------------------------------
@@ -338,9 +334,9 @@ def choices():
                 rmaildomain = "@gmail.com"
                 choices.remail = rmailcorrected + rmaildomain
                 print(choices.remail + "\n")
-                input_subject()   
+            input_subject()   
 #-----------------------------------------------------------------------------------------------
-        if text == '2' or text == 'tu' or text == 'two' or text == 'TWO' or text == 'to' or text == 'Second' or text == 'second' :
+        if text == 'Second' or text == 'second' :
             mail = imaplib.IMAP4_SSL('imap.gmail.com',993)
             mail.login(main.fullemail,main.password)
             stat, total = mail.select('Inbox')
@@ -370,6 +366,7 @@ def choices():
             # account credentials
             username = main.fullemail
             password = main.password
+
             def clean(text):
                 # clean text for creating a folder
                 return "".join(c if c.isalnum() else "_" for c in text)
@@ -396,9 +393,10 @@ def choices():
             if text == 'yes' or text == 'Yes':
                 N=unseen
             else:
-                exit()
+                exit()        
 
             status, messages = imap.select("INBOX")
+            # number of top emails to fetch
             # total number of emails
             messages = int(messages[0])
             for i in range(messages, messages-N, -1):
@@ -492,7 +490,7 @@ def choices():
             imap.close()
             imap.logout()
             backtomenu()
-#------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
         else:
             tts = gTTS(text="Please Select the correct choice.Going Back to Choices Menu", lang='en')
             ttsname=("elsechoice.mp3")
