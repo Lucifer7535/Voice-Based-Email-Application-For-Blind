@@ -8,6 +8,8 @@ import pyglet
 import os, time
 from email.header import decode_header
 import webbrowser
+#pyglet.lib.load_library('avbin')
+#pyglet.have_avbin=True
 
 #function to give reply as 'ok done' to user
 def ok_done():
