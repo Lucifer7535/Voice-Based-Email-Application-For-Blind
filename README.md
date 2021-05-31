@@ -1,5 +1,5 @@
 # Voice-Based-Email-Application-For-Blind
-**Fully Responsive Voice Based Email Application For Blind
+**Fully Responsive Voice Based Email Application For Blind**
 <p align="center">
 <img src="https://i.ibb.co/zn5dYDc/Picture1.jpg" border="0" width="250" height="250"/></p>
 <p align="center">
